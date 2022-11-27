@@ -50,14 +50,14 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $book = new Book();
-        $book->name = request()->name;
-        $book->slug = Str::slug(request()->name);
-        $book->author_name = request()->author_name;
-        $book->category_id = request()->category_id;
-        $book->price = request()->price;
-        $book->review = request()->review;
+        $book->name = $request->name;
+        $book->slug = Str::slug($request->name);
+        $book->author_name = $request->author_name;
+        $book->category_id = $request->category_id;
+        $book->price = $request->price;
+        $book->review = $request->review;
 
-        $pdf_name = uniqid() . "_upload." . request()->file('pdf')->extension();
+        $pdf_name = uniqid() . "_upload." . $request->file('pdf')->extension();
         $request->file('pdf')->storeAs('public/pdf', $pdf_name);
         $book->pdf = $pdf_name;
 
@@ -106,12 +106,12 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        $book->name = request()->name;
-        $book->slug = Str::slug(request()->name);
-        $book->author_name = request()->author_name;
-        $book->category_id = request()->category_id;
-        $book->price = request()->price;
-        $book->review = request()->review;
+        $book->name = $request->name;
+        $book->slug = Str::slug($request->name);
+        $book->author_name = $request->author_name;
+        $book->category_id = $request->category_id;
+        $book->price = $request->price;
+        $book->review = $request->review;
 
         if (request()->hasFile('pdf')) {
             //delete old file
@@ -119,7 +119,7 @@ class BookController extends Controller
             Storage::delete('public/thumbnail/' . $book->thumbnail);
 
             //update new file
-            $pdf_name = uniqid() . "_upload." . request()->file('pdf')->extension();
+            $pdf_name = uniqid() . "_upload." . $request->file('pdf')->extension();
             $request->file('pdf')->storeAs('public/pdf', $pdf_name);
             $book->pdf = $pdf_name;
 

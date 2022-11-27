@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,12 @@ Route::get('/', [PageController::class, 'index'])->name('welcome');
 Route::get('/ebooks/{category:slug}',[PageController::class,'postByCategory'])->name('welcome.category');
 Route::get("/admin-choice",[PageController::class,'postByAdminChoice'])->name('welcome.postByAdminChoice');
 Route::get("/detail/{category:slug}",[PageController::class,'postDetail'])->name('welcome.detail');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', [RechargeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/recharge-list',[RechargeController::class, 'rechargeLIst'])->name('rechargeList');
+    Route::resource('/recharge', RechargeController::class);
+});
 
 Auth::routes();
 
