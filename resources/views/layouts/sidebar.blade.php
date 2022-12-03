@@ -29,6 +29,19 @@
                     Trash
                 </a>
             </div>
+            <p class="small text-black-50 mb-1">Manage Recharge</p>
+            <div class="list-group mb-2 list-group-flush shadow-sm rounded">
+                <a href="{{ route('recharge.index',['pending'=>'true']) }}"
+                    class="list-group-item list-group-item-action {{ request('pending') ? 'active' : '' }}">
+                    Recharges 
+                </a>
+            </div>
+            <div class="list-group mb-2 list-group-flush shadow-sm rounded">
+                <a href="{{ route('recharge.index',['approve'=>'true']) }}"
+                    class="list-group-item list-group-item-action {{ request('approve') ? 'active' : '' }}">
+                    Recharged Lists
+                </a>
+            </div>
         @endadmin
     </div>
 </div>

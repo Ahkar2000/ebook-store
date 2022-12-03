@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recharge;
 use App\Http\Requests\StoreRechargeRequest;
 use App\Http\Requests\UpdateRechargeRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class RechargeController extends Controller
@@ -16,7 +17,14 @@ class RechargeController extends Controller
      */
     public function index()
     {
-        
+        $recharges = Recharge::when(request('pending'),function($q){
+            $q->where('approve','0');
+        })
+        ->when(request('approve'),function($q){
+            $q->where('approve','1');
+        })
+        ->latest('id')->get();
+        return view('auth.recharge.index',compact('recharges'));
     }
 
     /**
@@ -59,7 +67,11 @@ class RechargeController extends Controller
      */
     public function show(Recharge $recharge)
     {
-        //
+        if($recharge->approve == '0'){
+            return view('auth.recharge.detail',compact('recharge'));
+        }else{
+            return abort(404);
+        }
     }
 
     /**
@@ -82,7 +94,16 @@ class RechargeController extends Controller
      */
     public function update(UpdateRechargeRequest $request, Recharge $recharge)
     {
-        //
+        if(request('status') == 'true'){
+            $recharge->approve = '1';
+            $user = User::findOrFail($recharge->user_id);
+            $user->amount = $user->amount + $recharge->amount;
+            $user->update();
+        }elseif (request('status') == 'false'){
+            $recharge->approve = '2';
+        }
+        $recharge->update();
+        return to_route('recharge.index');
     }
 
     /**
@@ -101,6 +122,7 @@ class RechargeController extends Controller
     }
     public function rechargeList()
     {
-        return view('dashboard.recharge-list');
+        $recharges = Recharge::where('user_id',Auth::id())->latest('id')->get();
+        return view('dashboard.recharge-list',compact('recharges'));
     }
 }
