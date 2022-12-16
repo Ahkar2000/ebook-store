@@ -50,8 +50,10 @@
                                         <div class="card shadow mb-3 h-100">
                                             <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="text-center">
-                                                    <img src="{{ asset('storage/thumbnail/' . $book->thumbnail) }}"
+                                                    <a class="venobox" data-maxwidth="50%" href="{{ asset('storage/thumbnail/' . $book->thumbnail) }}">
+                                                        <img src="{{ asset('storage/thumbnail/' . $book->thumbnail) }}"
                                                         alt="" class="w-75">
+                                                    </a>
                                                 </div>
                                                 <hr>
                                                 <div>

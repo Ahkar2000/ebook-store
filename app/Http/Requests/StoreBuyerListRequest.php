@@ -13,7 +13,7 @@ class StoreBuyerListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreBuyerListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'book_id' => 'required|numeric|exists:books,id'
         ];
     }
 }

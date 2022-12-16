@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\BuyerList;
 use App\Models\Category;
-use App\Models\Recharge;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +48,10 @@ class AppServiceProvider extends ServiceProvider
         ],function ($view){
             $view->with('categories',Category::all());
         });
+        Blade::if('bought', function ($book_id) {
+            $user_id = Auth::id();
+            $check = BuyerList::where('book_id',"$book_id")->where('user_id',"$user_id")->count();
+            return $check != NULL;
+        });
     }
-   
 }

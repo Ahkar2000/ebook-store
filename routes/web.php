@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BuyerListController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RechargeController;
@@ -28,6 +29,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [RechargeController::class, 'dashboard'])->name('dashboard');
     Route::get('/recharge-list',[RechargeController::class, 'rechargeLIst'])->name('rechargeList');
     Route::resource('/recharge', RechargeController::class);
+    Route::resource('/buy', BuyerListController::class);
+    Route::get('/download/{book_id}', [BuyerListController::class, 'buyerDownlad'])->name('buyerDownlad');
+    Route::get('/my-books',[BuyerListController::class, 'myBooks'])->name('myBooks');
 });
 
 Auth::routes();

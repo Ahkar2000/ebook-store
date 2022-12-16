@@ -43,7 +43,7 @@
                                     <th>Screen Shot :</th>
                                 </tr>
                             </table>
-                            <img src="{{ asset("storage/ss/$recharge->tphoto") }}" class="w-25 ms-4 mt-3">
+                            <a class="venobox" data-gall="myGallery" href="{{ asset("storage/ss/$recharge->tphoto") }}"><img src="{{ asset("storage/ss/$recharge->tphoto") }}" class="w-25 ms-4 mt-3"></a>
                             <div class="mt-3 d-flex justify-content-end">
                                 <form action="{{ route('recharge.update',[$recharge->id,'status'=>'false']) }}" method="POST" class="me-2">
                                     @csrf

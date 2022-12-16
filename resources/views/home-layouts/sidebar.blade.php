@@ -14,14 +14,14 @@
             </div>
         </form>
         <div>
-            <h4>Search By Category</h4>
-            <div class="list-group">
+            <p class="small text-black-50 mb-1">Search By Category</p>
+            <div class="list-group mb-2 list-group-flush shadow-sm rounded">
                 <a href="{{ route('welcome') }}" class="list-group-item list-group-item-action {{ request()->is('/') ? 'active' : '' }}">See All</a>
                 <a href="{{ route('welcome.postByAdminChoice') }}" class="list-group-item list-group-item-action {{ request()->is('admin-choice') ? 'active' : '' }}">Admin's Choice</a>
                 @foreach ($categories as $category)
                     <a href="{{ route('welcome.category',$category->slug) }}" class="list-group-item list-group-item-action {{ request()->is("ebooks/$category->slug") ? 'active' : '' }}">{{ $category->name }}</a>
                 @endforeach
-              </div>
+            </div>
         </div>
     </div>
 </div>

@@ -27,3 +27,8 @@ document.addEventListener("DOMContentLoaded", function(){
     }) // forEach
   }); 
   // DOMContentLoaded  end
+import '../../node_modules/venobox/dist/venobox'
+new VenoBox({
+    selector: '.venobox',
+    
+});

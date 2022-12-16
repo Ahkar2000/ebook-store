@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BuyerList extends Model
 {
     use HasFactory;
+    protected $with = ['book'];
+    public function book(){
+        return $this->belongsTo(Book::class);
+    }
 }

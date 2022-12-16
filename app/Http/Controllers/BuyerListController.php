@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\BuyerList;
 use App\Http\Requests\StoreBuyerListRequest;
 use App\Http\Requests\UpdateBuyerListRequest;
+use App\Models\Book;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BuyerListController extends Controller
 {
@@ -36,7 +41,26 @@ class BuyerListController extends Controller
      */
     public function store(StoreBuyerListRequest $request)
     {
-        //
+        $book = Book::findOrFail($request->book_id);
+        $price = $book->price;
+        $user = User::findOrFail(Auth::id());
+        $check = BuyerList::where('book_id',"$request->book_id")->where('user_id',"$user->id")->count();
+
+        if($price > $user->amount){
+            return to_route('welcome.detail',$book->slug)->with('message',"You don't have enough balance.");
+        }else if($check != NULL){
+            return to_route('welcome.detail',$book->slug);
+        }
+        $user->amount = $user->amount - $price;
+        $user->update();
+        //add to buerlist table
+        $buyerList = new BuyerList();
+        $buyerList->book_id = $request->book_id;
+        $buyerList->amount = $price;
+        $buyerList->user_id = Auth::id();
+        $buyerList->save();
+        //reduce amount from user account
+        return to_route('welcome.detail',$book->slug)->with('message','You have bought this book.');
     }
 
     /**
@@ -82,5 +106,18 @@ class BuyerListController extends Controller
     public function destroy(BuyerList $buyerList)
     {
         //
+    }
+    public function buyerDownlad($id){
+        $user_id = Auth::id();
+        $buyBook = BuyerList::where('user_id',"$user_id")->where('book_id',"$id")->count();
+        if($buyBook == NULL){
+            return abort(402);
+        }
+        $book = Book::findOrFail($id);
+        return Storage::download('public/pdf/' . $book->pdf);
+    }
+    public function myBooks(){
+        $books = BuyerList::where('user_id',Auth::id())->paginate(6);
+        return view('dashboard.my-books',compact('books'));
     }
 }
