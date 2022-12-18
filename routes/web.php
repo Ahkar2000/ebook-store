@@ -27,9 +27,10 @@ Route::get("/detail/{category:slug}",[PageController::class,'postDetail'])->name
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [RechargeController::class, 'dashboard'])->name('dashboard');
-    Route::get('/recharge-list',[RechargeController::class, 'rechargeLIst'])->name('rechargeList');
+    Route::get('/recharge-list',[RechargeController::class, 'rechargeList'])->name('rechargeList');
     Route::resource('/recharge', RechargeController::class);
     Route::resource('/buy', BuyerListController::class);
+    Route::get('/buyer-lists',[BuyerListController::class, 'getLists'])->name('getLists');
     Route::get('/download/{book_id}', [BuyerListController::class, 'buyerDownlad'])->name('buyerDownlad');
     Route::get('/my-books',[BuyerListController::class, 'myBooks'])->name('myBooks');
 });

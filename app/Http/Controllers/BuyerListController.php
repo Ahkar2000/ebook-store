@@ -7,8 +7,8 @@ use App\Http\Requests\StoreBuyerListRequest;
 use App\Http\Requests\UpdateBuyerListRequest;
 use App\Models\Book;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BuyerListController extends Controller
@@ -20,9 +20,18 @@ class BuyerListController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth.buyer.index');
     }
-
+    public function getLists(){
+        if(request('list') == 'today'){
+            $buyerLists = BuyerList::whereDate('created_at',Carbon::now()->toDateString())->get();
+        }else if(request('list') == 'weekly'){
+            $buyerLists = BuyerList::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        }else if(request('list') == 'monthly'){
+            $buyerLists = BuyerList::whereMonth('created_at', Carbon::now()->month)->get();
+        }
+        return view('auth.buyer.table',compact('buyerLists'));
+    }
     /**
      * Show the form for creating a new resource.
      *

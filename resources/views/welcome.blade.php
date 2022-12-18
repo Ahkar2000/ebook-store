@@ -33,7 +33,7 @@
                                             <div class="card shadow mb-3 h-100">
                                                 <div class="card-body d-flex flex-column justify-content-between">
                                                     <div class="text-center">
-                                                        <a href="{{ route('welcome.detail',$book->slug) }}">
+                                                        <a href="{{ route('welcome.detail', $book->slug) }}">
                                                             <img src="{{ asset('storage/thumbnail/' . $book->thumbnail) }}"
                                                                 alt="" class="w-75">
                                                         </a>
@@ -41,7 +41,8 @@
                                                     <hr>
                                                     <div>
                                                         <div>
-                                                            <a href="{{ route('welcome.detail',$book->slug) }}" class=" text-decoration-none">
+                                                            <a href="{{ route('welcome.detail', $book->slug) }}"
+                                                                class=" text-decoration-none">
                                                                 @admin_choice($book)
                                                                     <i class="bi bi-star-fill text-warning"></i>
                                                                 @endadmin_choice
@@ -79,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 @endsection

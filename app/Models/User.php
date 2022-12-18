@@ -44,7 +44,4 @@ class User extends Authenticatable
     public function isAdmin(){
         return $this->role == 1;
     }
-    public function buyBooks(){
-        return $this->hasMany(BuyerList::class);
-    }
 }

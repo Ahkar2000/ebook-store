@@ -42,6 +42,13 @@
                     Recharged Lists
                 </a>
             </div>
+            <p class="small text-black-50 mb-1">Manage Buyer Lists</p>
+            <div class="list-group mb-2 list-group-flush shadow-sm rounded">
+                <a href="{{ route('buy.index') }}"
+                    class="list-group-item list-group-item-action {{ request()->is('buy') ? 'active' : '' }}">
+                    Buyer Lists
+                </a>
+            </div>
         @endadmin
     </div>
 </div>

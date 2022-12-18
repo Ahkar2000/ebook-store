@@ -9,9 +9,8 @@
             <div class="col-md-8">
                 <div class="card p-3 col-md-12">
                     <div class="card-body">
-                        <div class="text-center">
-                            <h4 class="mb-3 fw-bold">Recharge Lists</h4>
-                        </div>
+                        <h4>Recharge Lists</h4>
+                        <hr>
                         <div>
                             <table class="table table-hover table-striped">
                                 <thead>

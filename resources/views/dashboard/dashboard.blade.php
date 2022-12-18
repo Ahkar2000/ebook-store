@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-3 mt-sm-3">
+            <div class="col-md-3">
                 @include('home-layouts.dashboard-sidebar')
             </div>
             <div class="col-md-7">

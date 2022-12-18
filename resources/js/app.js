@@ -30,5 +30,6 @@ document.addEventListener("DOMContentLoaded", function(){
 import '../../node_modules/venobox/dist/venobox'
 new VenoBox({
     selector: '.venobox',
-    
 });
+
+import '../../node_modules/jquery/dist/jquery'
